@@ -11,64 +11,22 @@ provider "azurerm" {
   features {}
 }
 
-#
-## Create a resource group
-#resource "azurerm_resource_group" "HackingExerciseOne" {
-#  name     = "HackingExerciseOne"
-#  location = "East US"
-#
-#  tags = {
-#    "Terraform" : "true"
-#  }
-#}
-#
-#
-#resource "azurerm_app_service_plan" "HackingExerciseOne" {
-#  name                = "HackingExerciseOne-appserviceplan"
-#  location            = azurerm_resource_group.HackingExerciseOne.location
-#  resource_group_name = azurerm_resource_group.HackingExerciseOne.name
-#
-#  sku {
-#    tier = "Free"
-#    size = "F1"
-#  }
-#
-#  tags = {
-#    "Terraform" : "true"
-#  }
-#}
-#
-#resource "azurerm_app_service" "HackingExerciseOne" {
-#  name                = "HackingExerciseOne-app-service"
-#  location            = azurerm_resource_group.HackingExerciseOne.location
-#  resource_group_name = azurerm_resource_group.HackingExerciseOne.name
-#  app_service_plan_id = azurerm_app_service_plan.HackingExerciseOne.id
-#
-#  site_config {
-#    dotnet_framework_version = "v4.0"
-#    #scm_type                 = "VSTSRM"
-#  }
-#
-#  source_control {
-#    repo_url           = "https://github.com/thomaskennedy1066/HackingExampleOne.git"
-#    branch             = "main"
-#    manual_integration = true
-#  }
-#
-#
-#
-#  tags = {
-#    "Terraform" : "true"
-#  }
-#}
+# BEGIN AND SETUP
+variable "namePrefixExOne" {
+  type = string
+}
 
-variable "namePrefix" {
+variable "namePrefixExTwo" {
+  type = string
+}
+
+variable "namePrefixExThree" {
   type = string
 }
 
 # Create the resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-${var.namePrefix}"
+  name     = "rg-NDCLHackingExercises"
   location = "eastus"
 
   tags = {
@@ -76,6 +34,7 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
+# MAINLINE
 # Create the Linux App Service Plan
 resource "azurerm_app_service_plan" "appserviceplan" {
   name                = "appserviceplan-${var.namePrefix}"
@@ -94,6 +53,8 @@ resource "azurerm_app_service_plan" "appserviceplan" {
 
 # Create the web app, pass in the App Service Plan ID, and deploy code from a public GitHub repo
 resource "azurerm_app_service" "HackingExerciseOne" {
+  count = 2
+
   name                = "webapp-${var.namePrefix}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
