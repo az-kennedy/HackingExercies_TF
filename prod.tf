@@ -51,6 +51,13 @@ resource "azurerm_app_service" "HackingExercisesOne" {
   location            = azurerm_resource_group.rg.location
   app_service_plan_id = azurerm_app_service_plan.appserviceplan.id
 
+  source_control {
+    repo_url           = "https://github.com/thomaskennedy1066/HackingExampleOne.git"
+    branch             = "main"
+    manual_integration = true
+    use_mercurial      = false
+  }
+
   tags = {
     "Terraform" : "true"
   }
@@ -62,6 +69,13 @@ resource "azurerm_app_service" "HackingExercisesTwo" {
   location            = azurerm_resource_group.rg.location
   app_service_plan_id = azurerm_app_service_plan.appserviceplan.id
 
+  source_control {
+    repo_url           = "https://github.com/thomaskennedy1066/nodejs-docs-hello-world.git"
+    branch             = "master"
+    manual_integration = true
+    use_mercurial      = false
+  }
+
   tags = {
     "Terraform" : "true"
   }
@@ -72,6 +86,13 @@ resource "azurerm_app_service" "HackingExercisesThree" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   app_service_plan_id = azurerm_app_service_plan.appserviceplan.id
+
+  source_control {
+    repo_url           = "https://github.com/thomaskennedy1066/nodejs-docs-hello-world.git"
+    branch             = "master"
+    manual_integration = true
+    use_mercurial      = false
+  }
 
   tags = {
     "Terraform" : "true"
