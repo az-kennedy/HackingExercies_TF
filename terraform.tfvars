@@ -1,1 +1,1 @@
-namePrefix = "HackingExerciseOne01182022"
+namePrefix = "NDCLHackingExercises"
