@@ -8,7 +8,6 @@ terraform {
 }
 
 # BEGIN AND SETUP
-
 provider "azurerm" {
   features {}
 }
@@ -17,7 +16,6 @@ variable "namePrefix" {
   type = list(string)
 }
 
-# Create the resource group
 resource "azurerm_resource_group" "rg" {
   name     = "rg-${var.namePrefix[0]}"
   location = "eastus"
