@@ -68,8 +68,8 @@ resource "azurerm_app_service" "HackingExercisesTwo" {
   app_service_plan_id = azurerm_app_service_plan.appserviceplan.id
 
   source_control {
-    repo_url           = "https://github.com/thomaskennedy1066/nodejs-docs-hello-world.git"
-    branch             = "master"
+    repo_url           = "https://github.com/thomaskennedy1066/HackingExampleTwo.git"
+    branch             = "main"
     manual_integration = true
     use_mercurial      = false
   }
