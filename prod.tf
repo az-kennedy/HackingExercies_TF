@@ -33,8 +33,8 @@ resource "azurerm_app_service_plan" "appserviceplan" {
   resource_group_name = azurerm_resource_group.rg.name
   
   sku {
-    tier = "Free"
-    size = "F1"
+    tier = "Basic"
+    size = "B2"
   }
 
   tags = {
@@ -48,6 +48,7 @@ resource "azurerm_app_service" "HackingExercisesOne" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   app_service_plan_id = azurerm_app_service_plan.appserviceplan.id
+  https_only          = true
 
   source_control {
     repo_url           = "https://github.com/thomaskennedy1066/HackingExampleOne.git"
@@ -61,11 +62,13 @@ resource "azurerm_app_service" "HackingExercisesOne" {
   }
 }
 
+
 resource "azurerm_app_service" "HackingExercisesTwo" {
   name                = "webapp-${var.namePrefix[1]}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   app_service_plan_id = azurerm_app_service_plan.appserviceplan.id
+  https_only          = true
 
   source_control {
     repo_url           = "https://github.com/thomaskennedy1066/HackingExampleTwo.git"
@@ -77,4 +80,14 @@ resource "azurerm_app_service" "HackingExercisesTwo" {
   tags = {
     "Terraform" : "true"
   }
+}
+
+output "ExerciseOneURL" {
+  value       = azurerm_app_service.HackingExercisesOne.default_site_hostname
+  description = "Exercise One URL"
+}
+
+output "ExerciseTwoURL" {
+  value       = azurerm_app_service.HackingExercisesTwo.default_site_hostname
+  description = "Exercise Two URL"
 }
